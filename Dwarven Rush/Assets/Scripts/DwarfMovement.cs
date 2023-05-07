@@ -34,7 +34,6 @@ public class DwarfMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        Debug.Log(jumping);
         if (Input.GetKey(KeyCode.A))
         {
             body.AddForce(Vector2.left * move_speed, ForceMode2D.Force);
@@ -55,7 +54,6 @@ public class DwarfMovement : MonoBehaviour
         if (Mathf.Abs(velocity.x) >= max_speed)
         {
             float direction = velocity.x == 0 ? 0 : velocity.x / Mathf.Abs(velocity.x);
-            Debug.Log(direction);
             velocity.x = max_speed * direction;
         }
 
