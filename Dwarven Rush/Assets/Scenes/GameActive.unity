@@ -247,7 +247,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!61 &763726267
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -334,8 +334,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763726265}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -15.39, y: -6.78, z: 0.41335937}
-  m_LocalScale: {x: 1.4005, y: 2.7621, z: 1}
+  m_LocalPosition: {x: -15.0955, y: -6.1173, z: 0.41335937}
+  m_LocalScale: {x: 1.8607044, y: 3.7976112, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -356,6 +356,7 @@ MonoBehaviour:
   move_speed: 25
   max_speed: 12
   jump_strength: 15
+  air_jump: 0
 --- !u!1 &821801505
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,26 +7,43 @@ public class DwarfMovement : MonoBehaviour
     public float move_speed;
     public float max_speed;
     public float jump_strength;
-    private bool jumping = false;
+
+    public bool air_jump;
+    private bool awaiting_jump = false;
 
     private Rigidbody2D body;
+    private BoxCollider2D box_collider;
 
     bool TouchingGround()
     {
-        return true;
+        if (air_jump) { return true; }
+        // can replace with other conditions to allow double or triple jump etc
+        
+        Vector3 collider_floor = gameObject.transform.position;
+        collider_floor.y -= box_collider.bounds.extents.y + 0.1f;
+
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)collider_floor, Vector2.down, 0.2f);
+        
+        return hit.collider != null;
+    }
+
+    bool Jumping()
+    {
+        return awaiting_jump && TouchingGround();
     }
 
     // Start is called before the first frame update
     void Start()
     {
         body = GetComponent<Rigidbody2D>();
+        box_collider = body.GetComponent<BoxCollider2D>();
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            jumping = true;
+            awaiting_jump = true;
         }
         // this is a scuffed work around to make sure the jump is detected even if the
         // space key is pressed on a non FixedUpdate frame
@@ -45,11 +62,11 @@ public class DwarfMovement : MonoBehaviour
 
         Vector3 velocity = body.velocity;
 
-        if (jumping && TouchingGround())
+        if (Jumping())
         {
             velocity.y = jump_strength;
-            jumping = false;
         }
+        awaiting_jump = false;
 
         if (Mathf.Abs(velocity.x) >= max_speed)
         {
