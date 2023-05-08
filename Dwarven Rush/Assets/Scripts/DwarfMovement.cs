@@ -18,12 +18,12 @@ public class DwarfMovement : MonoBehaviour
     {
         if (air_jump) { return true; }
         // can replace with other conditions to allow double or triple jump etc
-        
+
         Vector3 collider_floor = gameObject.transform.position;
         collider_floor.y -= box_collider.bounds.extents.y + 0.1f;
 
         RaycastHit2D hit = Physics2D.Raycast((Vector2)collider_floor, Vector2.down, 0.2f);
-        
+
         return hit.collider != null;
     }
 
@@ -41,7 +41,9 @@ public class DwarfMovement : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) || 
+            Input.GetKeyDown(KeyCode.W) ||
+            Input.GetKeyDown(KeyCode.UpArrow))
         {
             awaiting_jump = true;
         }
@@ -51,11 +53,13 @@ public class DwarfMovement : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey(KeyCode.A) ||
+            Input.GetKey(KeyCode.LeftArrow))
         {
             body.AddForce(Vector2.left * move_speed, ForceMode2D.Force);
         }
-        else if (Input.GetKey(KeyCode.D))
+        else if (Input.GetKey(KeyCode.D) ||
+                 Input.GetKey(KeyCode.RightArrow))
         {
             body.AddForce(Vector2.right * move_speed, ForceMode2D.Force);
         }
