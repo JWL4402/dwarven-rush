@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Gap : MonoBehaviour
 {
-    public GameObject floor;
+    private GameObject floor;
     private GameObject dwarf;
 
     private BoxCollider2D floor_collider;
@@ -41,6 +41,7 @@ public class Gap : MonoBehaviour
     void Start()
     {
         dwarf = GameObject.FindGameObjectWithTag("Dwarf");
+        floor = GameObject.FindGameObjectWithTag("Main Floor");
 
         gap_collider = GetComponent<BoxCollider2D>();
         dwarf_collider = dwarf.GetComponent<BoxCollider2D>();
