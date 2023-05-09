@@ -5,13 +5,18 @@ using UnityEngine;
 
 public class RoomMovement : MonoBehaviour
 {
-    //public float speed;
-    public float time;
-    public BoxCollider2D floor_collider;
+    public float speed;
 
+    private float floor_extents;
+    private float room_extents;
+
+    void Spawn()
+    {
+        Vector3 spawn_pos = Vector3.right * (room_extents + floor_extents);
+        transform.position = spawn_pos;
+    }
     void Move()
     {
-        float speed = floor_collider.bounds.size.x / time;
         Vector3 pos = transform.position;
         pos.x -= speed * Time.deltaTime;
         transform.position = pos;
@@ -19,21 +24,23 @@ public class RoomMovement : MonoBehaviour
 
     void CheckOffscreen()
     {
-        //float rightmost_pos_x = floor_collider.bounds.extents.x + transform.position.x;
-        Debug.Log(floor_collider.bounds.extents.x);
-        if (floor_collider.bounds.extents.x * -2 > transform.position.x)
+        if ((room_extents + floor_extents) * -1 > transform.position.x)
         {
             Destroy(gameObject);
         }
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        floor_collider = GetComponentInChildren<BoxCollider2D>();
+        BoxCollider2D room_collider = GetComponent<BoxCollider2D>();
+        room_extents = room_collider.bounds.extents.x;
+
+        GameObject floor = GameObject.FindGameObjectWithTag("Main Floor");
+        floor_extents = floor.GetComponent<BoxCollider2D>().bounds.extents.x;
+
+        Spawn();
     }
 
-    // Update is called once per frame
     void Update()
     {
         Move();

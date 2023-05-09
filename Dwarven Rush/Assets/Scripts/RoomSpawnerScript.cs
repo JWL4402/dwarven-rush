@@ -5,9 +5,10 @@ using UnityEngine;
 public class RoomSpawnerScript : MonoBehaviour
 {    
     public GameObject[] rooms;
-    public GameObject basic_room;
+
     public float min_interval;
     public float max_interval;
+    public float start_interval;
 
     private float timer;
     private float interval;
@@ -15,24 +16,19 @@ public class RoomSpawnerScript : MonoBehaviour
     
     void Spawn()
     {
-        //timer = 0f;
-        //interval = Random.Range(min_interval, max_interval);
-        //next_room = rooms[Random.Range(0, rooms.Length)];
+        timer = 0f;
+        interval = Random.Range(min_interval, max_interval);
+        next_room = rooms[Random.Range(0, rooms.Length)];
 
-        //Instantiate(next_room, new Vector3(25, 0, 0), Quaternion.identity, gameObject.transform);
+        Instantiate(next_room, new Vector3(0, 0, -15), Quaternion.identity, gameObject.transform);
+        // Spawn offscreen, room movement script will handle starting position
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        //GameObject starter_room = Instantiate(basic_room, Vector3.zero, Quaternion.identity, gameObject.transform);
-        //RoomMovement script = starter_room.GetComponent<RoomMovement>();
-        //script.time = max_interval;
-
-        Spawn();
+        interval = start_interval;
     }
 
-    // Update is called once per frame
     void Update()
     {
         timer += Time.deltaTime;
