@@ -26,6 +26,7 @@ public class Gap : MonoBehaviour
         if (left_bound < dwarf_left && right_bound > dwarf_right)
         {
             floor_collider.enabled = false;
+            Vector3 pos
         }
         else
         {
