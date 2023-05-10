@@ -15,6 +15,8 @@ public class DwarfMovement : MonoBehaviour
     private Rigidbody2D body;
     private BoxCollider2D box_collider;
 
+    private LayerMask ground_mask;
+
     public void SuggestMovement(Vector3 offset)
     {
         if (!awaiting_influence) { return; }
@@ -29,7 +31,8 @@ public class DwarfMovement : MonoBehaviour
         Vector3 collider_floor = gameObject.transform.position;
         collider_floor.y -= box_collider.bounds.extents.y + 0.1f;
 
-        RaycastHit2D hit = Physics2D.Raycast((Vector2)collider_floor, Vector2.down, 0.2f);
+        Debug.DrawRay(collider_floor, Vector3.down, Color.red, 15);
+        RaycastHit2D hit = Physics2D.Raycast((Vector2)collider_floor, Vector2.down, 0.2f, ground_mask);
 
         return hit.collider != null;
     }
@@ -44,6 +47,7 @@ public class DwarfMovement : MonoBehaviour
     {
         body = GetComponent<Rigidbody2D>();
         box_collider = body.GetComponent<BoxCollider2D>();
+        ground_mask = LayerMask.GetMask("Platforms");
     }
 
     void Update()
