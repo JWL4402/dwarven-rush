@@ -48,6 +48,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  platforms:
+  - {fileID: 6964348953849776783}
 --- !u!61 &1597689536078665871
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -131,6 +133,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fe12045aa3904bd43aacb297d900d633, type: 3}
+--- !u!1 &6964348953849776783 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4432790820047767537, guid: fe12045aa3904bd43aacb297d900d633, type: 3}
+  m_PrefabInstance: {fileID: 6710989867349380478}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6964348953849776817 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4432790820047767503, guid: fe12045aa3904bd43aacb297d900d633, type: 3}

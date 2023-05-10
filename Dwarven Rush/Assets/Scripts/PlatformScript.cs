@@ -4,23 +4,24 @@ using UnityEngine;
 
 public class PlatformScript : MonoBehaviour
 {
-    private BoxCollider2D platform_collider;
-    private GameObject dwarf;
-    private BoxCollider2D dwarf_collider;
+    public float speed;
 
-    void Start()
+    private GameObject dwarf;
+    private DwarfMovement dwarf_movement;
+    private BoxCollider2D dwarf_collider;
+    //private BoxCollider2D platform_collider;
+
+    private void Start()
     {
-        platform_collider = GetComponent<BoxCollider2D>();
         dwarf = GameObject.FindGameObjectWithTag("Dwarf");
+        dwarf_movement = dwarf.GetComponent<DwarfMovement>();
         dwarf_collider = dwarf.GetComponent<BoxCollider2D>();
     }
 
     // Update is called once per frame
-    void Update()
+    private void OnCollisionStay2D(Collision2D collision)
     {
-        if (!Input.anyKey)
-        {
-
-        }
+        if (collision.collider != dwarf_collider) { return; }
+        dwarf_movement.SuggestMovement(Vector3.left * speed * Time.deltaTime);
     }
 }

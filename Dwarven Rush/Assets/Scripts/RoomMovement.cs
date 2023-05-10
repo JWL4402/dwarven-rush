@@ -6,6 +6,7 @@ using UnityEngine;
 public class RoomMovement : MonoBehaviour
 {
     public float speed;
+    public GameObject[] platforms;
 
     private float floor_extents;
     private float room_extents;
@@ -37,6 +38,12 @@ public class RoomMovement : MonoBehaviour
 
         GameObject floor = GameObject.FindGameObjectWithTag("Main Floor");
         floor_extents = floor.GetComponent<BoxCollider2D>().bounds.extents.x;
+
+        foreach (GameObject platform in platforms)
+        {
+            PlatformScript script = platform.GetComponent<PlatformScript>();
+            script.speed = speed;
+        }
 
         Spawn();
     }

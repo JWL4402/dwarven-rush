@@ -10,9 +10,16 @@ public class DwarfMovement : MonoBehaviour
 
     public bool air_jump;
     private bool awaiting_jump = false;
+    private bool awaiting_influence = false;
 
     private Rigidbody2D body;
     private BoxCollider2D box_collider;
+
+    public void SuggestMovement(Vector3 offset)
+    {
+        if (!awaiting_influence) { return; }
+        transform.position += offset;
+    }
 
     bool TouchingGround()
     {
@@ -41,6 +48,13 @@ public class DwarfMovement : MonoBehaviour
 
     void Update()
     {
+        if (!Input.anyKey)
+        {
+            awaiting_influence = true;
+            return;
+        }
+        awaiting_influence = false;
+
         if (Input.GetKeyDown(KeyCode.Space) || 
             Input.GetKeyDown(KeyCode.W) ||
             Input.GetKeyDown(KeyCode.UpArrow))
