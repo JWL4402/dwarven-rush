@@ -14,12 +14,13 @@ public class LogicScript : MonoBehaviour
 
     public GameState state = GameState.ACTIVE;
     private int score;
+
     [SerializeField] private TextMeshProUGUI scoreboard;
+
     [SerializeField] private GameObject gameover;
+    [SerializeField] private Image gameover_background;
     [SerializeField] private TextMeshProUGUI gameover_score;
 
-
-    [ContextMenu("Add Score")]
     public void AddScore(int score_increment = 1)
     {
         score += score_increment;
@@ -33,5 +34,18 @@ public class LogicScript : MonoBehaviour
 
         gameover_score.text = "Score : " + score;
         gameover.SetActive(true);
+
+        FadeScreen(1f, 4f);
+    }
+
+    private void FadeScreen(float desired_alpha, float interval)
+    {
+        Color color = gameover_background.color;
+        color.a = 1f;
+        gameover_background.color = color;
+
+        gameover_background.CrossFadeAlpha(0f, 0f, true);
+
+        gameover_background.CrossFadeAlpha(desired_alpha, interval, false);
     }
 }
