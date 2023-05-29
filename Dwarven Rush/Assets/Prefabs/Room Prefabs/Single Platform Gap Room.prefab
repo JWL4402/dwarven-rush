@@ -48,6 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
+  points: 100
   platforms:
   - {fileID: 6964348953849776783}
 --- !u!61 &1597689536078665871

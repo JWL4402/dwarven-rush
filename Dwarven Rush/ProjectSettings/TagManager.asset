@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Main Floor
   - Dwarf
+  - Logic
+  - Game Over
   layers:
   - Default
   - TransparentFX

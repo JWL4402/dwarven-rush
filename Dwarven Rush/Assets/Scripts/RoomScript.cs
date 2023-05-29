@@ -3,13 +3,15 @@ using System.Collections.Generic;
 using UnityEditor.UI;
 using UnityEngine;
 
-public class RoomMovement : MonoBehaviour
+public class RoomScript : MonoBehaviour
 {
     public float speed;
+    public int points;
     public GameObject[] platforms;
 
     private float floor_extents;
     private float room_extents;
+    private LogicScript logic;
 
     void Spawn()
     {
@@ -28,6 +30,7 @@ public class RoomMovement : MonoBehaviour
         if ((room_extents + floor_extents) * -1 > transform.position.x)
         {
             Destroy(gameObject);
+            logic.AddScore(points);
         }
     }
 
@@ -38,6 +41,8 @@ public class RoomMovement : MonoBehaviour
 
         GameObject floor = GameObject.FindGameObjectWithTag("Main Floor");
         floor_extents = floor.GetComponent<BoxCollider2D>().bounds.extents.x;
+
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
 
         foreach (GameObject platform in platforms)
         {

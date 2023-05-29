@@ -17,6 +17,8 @@ public class DwarfMovement : MonoBehaviour
 
     private LayerMask ground_mask;
 
+    private LogicScript logic;
+
     public void SuggestMovement(Vector3 offset)
     {
         if (!awaiting_influence) { return; }
@@ -48,10 +50,19 @@ public class DwarfMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         box_collider = body.GetComponent<BoxCollider2D>();
         ground_mask = LayerMask.GetMask("Platforms");
+        logic = GameObject.FindGameObjectWithTag("Logic").GetComponent<LogicScript>();
     }
 
     void Update()
     {
+        if (logic.state == LogicScript.GameState.GAME_OVER)
+        {
+            // many alternative ways to do this
+            // - just return, it wont do anything (add it to fixed update too)
+            // - turn off script
+            return;
+        }
+        
         if (!Input.anyKey)
         {
             awaiting_influence = true;
@@ -71,6 +82,8 @@ public class DwarfMovement : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (logic.state == LogicScript.GameState.GAME_OVER) { return;  }
+
         if (Input.GetKey(KeyCode.A) ||
             Input.GetKey(KeyCode.LeftArrow))
         {
